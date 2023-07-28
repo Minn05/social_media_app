@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "262429192083",
+    "project_id": "socialtutorial-95839",
+    "storage_bucket": "socialtutorial-95839.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262429192083:android:5a9f2d9eb92bb5c977c266",
+        "android_client_info": {
+          "package_name": "com.example.social_media_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262429192083-k9ojjkj9q2301602gc2n31t9cr1v7vna.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.social_media_app",
+            "certificate_hash": "6453301392f92a8ed37263f79edb133eb3db02d8"
+          }
+        },
+        {
+          "client_id": "262429192083-ktkj02s12lu6hdncfd9cnsio9lpsrg99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA81z0_GY8yr71mG5CpOy_dTUGPS5TuT9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262429192083-ktkj02s12lu6hdncfd9cnsio9lpsrg99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
