@@ -60,12 +60,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.grey[900],
-        title: Text(
+        title: const Text(
           'HomePage',
-          style: TextStyle(color: Colors.amberAccent.shade700),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -137,13 +136,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
-            //logged in as
-            // Text(
-            //   "LOGGED IN AS: " + currentUser.email!,
-            //   //+ user.email!,
-            //   style: TextStyle(fontSize: 20),
-            // ),
           ],
         ),
       ),

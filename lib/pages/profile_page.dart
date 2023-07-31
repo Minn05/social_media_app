@@ -24,17 +24,20 @@ class _ProfilePageState extends State<ProfilePage> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
           "Edit $field",
-          style: const TextStyle(color: Colors.white),
         ),
         content: TextField(
           autofocus: true,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.grey),
+          cursorColor: Colors.grey,
           decoration: InputDecoration(
             hintText: "Enter new $field",
             hintStyle: TextStyle(color: Colors.grey),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
           ),
           onChanged: (value) {
             newValue = value;
@@ -46,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () => Navigator.pop(context),
             child: Text(
               'Cancel',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.grey),
             ),
           ),
 
@@ -55,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () => Navigator.of(context).pop(newValue),
             child: Text(
               'Save',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.grey),
             ),
           ),
         ],
@@ -72,14 +75,13 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade300,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           title: Text(
             "Profile Page",
-            style: TextStyle(color: Colors.amberAccent.shade700),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          backgroundColor: Colors.grey.shade900,
         ),
         body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
@@ -109,7 +111,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   Text(
                     currentUser.email!,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey.shade700),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
                   ),
 
                   const SizedBox(
@@ -121,7 +126,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
                       'Details',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
 
@@ -148,7 +156,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
                       'My Posts',
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ],

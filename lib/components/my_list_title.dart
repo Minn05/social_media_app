@@ -18,12 +18,14 @@ class MyListTitle extends StatelessWidget {
       child: ListTile(
         leading: Icon(
           icon,
-          color: Colors.amberAccent.shade700,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         onTap: onTap,
         title: Text(
           text,
-          style: TextStyle(color: Colors.amberAccent.shade700),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/components/comment.dart';
 import 'package:social_media_app/components/comment_button.dart';
+import 'package:social_media_app/components/delete_button.dart';
 import 'package:social_media_app/components/like_button.dart';
 import 'package:social_media_app/helper/helper_methods.dart';
 
@@ -79,10 +80,10 @@ class _WallPostState extends State<WallPost> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Add Comment'),
+        title: const Text('Add Comment'),
         content: TextField(
           controller: _commentController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "Write your comment...",
           ),
         ),
@@ -99,7 +100,10 @@ class _WallPostState extends State<WallPost> {
               //clear controller
               _commentController.clear();
             },
-            child: Text("Post"),
+            child: const Text(
+              "Post",
+              style: TextStyle(color: Colors.grey),
+            ),
           ),
 
           //cancel button
@@ -111,7 +115,72 @@ class _WallPostState extends State<WallPost> {
               //clear controller
               _commentController.clear();
             },
-            child: Text("Cancel"),
+            child: const Text(
+              "Cancel",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //delete post
+  void deletePost() {
+    //show dialog to confirm delete post
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete'),
+        content: Text('Are you sure you want to delete this post?'),
+        actions: [
+          //cancel
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "Cancel",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+
+          //confirm delete
+          TextButton(
+            onPressed: () async {
+              //delete the comment from Firestore first
+              //(if you only delete the post, the comments will still be stored in firestore)
+              final commentDocs = await FirebaseFirestore.instance
+                  .collection("User Posts")
+                  .doc(widget.postId)
+                  .collection("comments")
+                  .get();
+
+              for (var doc in commentDocs.docs) {
+                await FirebaseFirestore.instance
+                    .collection("User Posts")
+                    .doc(widget.postId)
+                    .collection("Comments")
+                    .doc(doc.id)
+                    .delete();
+              }
+
+              //then delete the post
+              FirebaseFirestore.instance
+                  .collection("User Posts")
+                  .doc(widget.postId)
+                  .delete()
+                  .then(
+                    (value) => print("post deleted"),
+                  )
+                  .catchError(
+                      (error) => print("failed to delete post: $error"));
+
+              //dismiss the dialog
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Delete",
+              style: TextStyle(color: Colors.grey),
+            ),
           ),
         ],
       ),
@@ -125,7 +194,7 @@ class _WallPostState extends State<WallPost> {
       child: Container(
         //padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -142,7 +211,7 @@ class _WallPostState extends State<WallPost> {
                   ),
                 ),
 
-                //username and post
+                //username and message
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -163,18 +232,17 @@ class _WallPostState extends State<WallPost> {
                         widget.message,
                         style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                //like and comment
+                //like, comment and delete post
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //like
                       Column(
@@ -188,7 +256,7 @@ class _WallPostState extends State<WallPost> {
                           //like count
                           Text(
                             widget.likes.length.toString(),
-                            style: TextStyle(color: Colors.grey),
+                            style: const TextStyle(color: Colors.grey),
                           ),
                         ],
                       ),
@@ -202,12 +270,16 @@ class _WallPostState extends State<WallPost> {
                           ),
 
                           //comment count
-                          Text(
+                          const Text(
                             '0',
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
                       ),
+
+                      //delete
+                      if (widget.user == currentUser.email)
+                        MyDeletebutton(onTap: deletePost)
                     ],
                   ),
                 ),
@@ -225,13 +297,13 @@ class _WallPostState extends State<WallPost> {
               builder: (context, snapshot) {
                 //show loading circle if no data  yet
                 if (!snapshot.hasData) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
                 return ListView(
                   shrinkWrap: true, // for nested lists
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: snapshot.data!.docs.map((doc) {
                     //get the comment
                     final commentData = doc.data() as Map<String, dynamic>;

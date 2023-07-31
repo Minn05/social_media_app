@@ -1,5 +1,4 @@
-  
-  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -85,9 +84,10 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo
-                const Icon(
+                Icon(
                   Icons.lock,
                   size: 100,
+                  color: Colors.grey.shade900,
                 ),
                 const SizedBox(
                   height: 15,

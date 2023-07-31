@@ -13,23 +13,27 @@ class Comment extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey.shade400,
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(4),
         ),
         margin: const EdgeInsets.only(bottom: 5),
         padding: const EdgeInsets.all(15),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //comment
-            Text(text),
             //user, time
             Row(
               children: [
-                Text(user),
-                Text(" • "),
+                Text(
+                  user,
+                ),
+                const Text(" • "),
                 Text(time),
               ],
-            )
+            ),
+
+            //comment
+            Text(text),
           ],
         ),
       ),

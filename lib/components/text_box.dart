@@ -15,11 +15,11 @@ class MyTextBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(8),
       ),
-      padding: EdgeInsets.only(left: 15, bottom: 15),
-      margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+      padding: const EdgeInsets.only(left: 15, bottom: 15),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,16 +29,15 @@ class MyTextBox extends StatelessWidget {
             children: [
               Text(
                 sectionName,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade700),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               IconButton(
                 onPressed: onPressed,
-                icon: Icon(
+                icon: const Icon(
                   Icons.settings,
-                  color: Colors.grey.shade700,
                 ),
               ),
             ],
